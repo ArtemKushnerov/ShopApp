@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<shop>
+	<category name="">
+		<subcategory name="">
+			<product>
+				<producer></producer>
+				<model></model>
+				<date_of_issue></date_of_issue>
+				<color></color>
+				<price></price>
+			</product>
+            <product>
+                <producer></producer>
+                <model></model>
+                <date_of_issue></date_of_issue>
+                <color></color>
+                <price></price>
+            </product>
+		</subcategory>
+	</category>
+</shop>
