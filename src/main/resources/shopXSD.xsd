@@ -1,15 +1,60 @@
 <?xml version="1.0"?>
-<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	targetNamespace="http://www.ShopApp.com" xmlns="http://www.ShopApp.com"
+	elementFormDefault="qualified">
 
-<xs:element name=shop>
-  <xs:complexType>
-    <xs:sequence>
-      <xs:element name="to" type="xs:string"/>
-      <xs:element name="from" type="xs:string"/>
-      <xs:element name="heading" type="xs:string"/>
-      <xs:element name="body" type="xs:string"/>
-    </xs:sequence>
-  </xs:complexType>
-</xs:element>
+	<xs:element name="shop" type="shop" />
+
+	<xs:complexType name="shop">
+		<xs:sequence>
+			<xs:element name="category" type="category" />
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:complexType name="category">
+		<xs:sequence>
+			<xs:element name="subcategory" type="subcategory" minOccurs="1" maxOccurs="unbounded" />
+		</xs:sequence>
+		<xs:attribute name="name" type="xs:string" use="required" />
+	</xs:complexType>
+
+	<xs:complexType name="subcategory" >
+		<xs:sequence>
+			<xs:element name="product" type="product" minOccurs="0" maxOccurs="unbounded" />
+		</xs:sequence>
+		<xs:attribute name="name" type="xs:string" use="required" />
+	</xs:complexType>
+
+	<xs:complexType name="product">
+		<xs:sequence>
+			<xs:element name="producer" type="xs:string" />
+			<xs:element name="model">
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:pattern value="[a-zA-Z][a-zA-Z][a-zA-Z][0-9][0-9]" />
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="date_of_issue" type="xs:date" />
+			<xs:element name="color" type="xs:string" />
+			<xs:choice>
+				<xs:element name="price">
+					<xs:simpleType>
+						<xs:restriction base="xs:decimal">
+							<xs:minExclusive value="0" />
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				<xs:element name="not_in_stock">
+					<xs:simpleType>
+						<xs:restriction base="xs:string">
+							<xs:length value="0" />
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+			</xs:choice>
+		</xs:sequence>
+		<xs:attribute name="name" type="xs:string" use="required" />
+	</xs:complexType>
 
 </xs:schema>

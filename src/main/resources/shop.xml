@@ -1,21 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<shop>
-	<category name="">
-		<subcategory name="">
-			<product>
-				<producer></producer>
-				<model></model>
-				<date_of_issue></date_of_issue>
-				<color></color>
-				<price></price>
+<shop xmlns="http://www.ShopApp.com"
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xsi:schemaLocation="http://www.ShopApp.com shopXSD.xsd">
+	<category name="cat1">
+		<subcategory name="sub1">
+			<product name="prod1">
+				<producer>asd</producer>
+				<model>abc12</model>
+				<date_of_issue>2012-01-01</date_of_issue>
+				<color>red</color>
+				<price>12</price>
 			</product>
-            <product>
-                <producer></producer>
-                <model></model>
-                <date_of_issue></date_of_issue>
-                <color></color>
-                <price></price>
-            </product>
+			<product name="prod2">
+				<producer>asd</producer>
+				<model>abc12</model>
+				<date_of_issue>2012-01-01</date_of_issue>
+				<color>red</color>
+				<price>12</price>
+			</product>
 		</subcategory>
 	</category>
 </shop>
