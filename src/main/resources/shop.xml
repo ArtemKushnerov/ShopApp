@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<shop xmlns="http://www.ShopApp.com"
-xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-xsi:schemaLocation="http://www.ShopApp.com shopXSD.xsd">
-	<category name="cat1">
+<?xml-stylesheet type="text/xsl" href="shopTransform.xsl"?>
+<shop >
+	<category name='cat1'>
 		<subcategory name="sub1">
 			<product name="prod1">
 				<producer>asd</producer>
@@ -19,5 +18,7 @@ xsi:schemaLocation="http://www.ShopApp.com shopXSD.xsd">
 				<price>12</price>
 			</product>
 		</subcategory>
+	</category>
+	<category name="cat2">
 	</category>
 </shop>

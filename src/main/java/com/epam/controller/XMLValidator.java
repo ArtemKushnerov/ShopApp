@@ -33,7 +33,7 @@ public class XMLValidator {
     }
     
     public static void main(String[] args) throws SAXException, IOException {
-		System.out.println(check("D:\\workspace\\ShopApp\\src\\main\\resources\\shop.xml","D:\\workspace\\ShopApp\\src\\main\\resources\\shopXSD.xsd"));
+		System.out.println(check("src/main/resources/shop.xml","src/main/resources/shopXSD.xsd"));
 	}
 
 }
