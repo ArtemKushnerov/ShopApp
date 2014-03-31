@@ -45,9 +45,11 @@ public class SaveProductAction implements Action {
 		transParams.put("price", price);
 		transParams.put("producer", producer);
 		transParams.put("notInStock", notInStock);
-		HTMLWriter.write(styleSheet, catalog, resultWriter, transParams);
+		Map<String,String> errors = new HashMap<String,String>();
+		
+		HTMLWriter.save(styleSheet, catalog, resultWriter, transParams,errors);
 
-
+		System.out.println(errors.entrySet());
 		String pathToCatalog = req.getServletContext().getRealPath("WEB-INF/classes/shop.xml");	
 		File catalogFile=new File(pathToCatalog); //"d:/catalog.xml"
 		Writer fileWriter = new PrintWriter(catalogFile, "UTF-8");

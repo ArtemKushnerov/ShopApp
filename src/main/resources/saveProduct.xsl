@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xsl:stylesheet version="2.0"
+<xsl:stylesheet version="1.0"
 	xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:validator="xalan://com.epam.util.Validator">
 
 	<xsl:param name="catName" />
@@ -11,13 +11,16 @@
 	<xsl:param name="dateOfIssue" />
 	<xsl:param name="price" />
 	<xsl:param name="notInStock" />
+	<xsl:param name="validator" />
+	<xsl:param name="errors" />
+
 
 	<xsl:output method="xml" indent="yes" />
 
 	<xsl:template match="/">
 		<xsl:choose>
 			<xsl:when
-				test="validator:validate($producer,$model,$color,$dateOfIssue,$price,$notInStock)">
+				test="validator:validate($producer,$model,$color,$dateOfIssue,$price,$notInStock,$errors)">
 				<xsl:call-template name="copyNodes" />
 			</xsl:when>
 			<xsl:otherwise>
@@ -37,7 +40,7 @@
 			<xsl:attribute name="name">
 				<xsl:value-of select="$subcatName" />
 			</xsl:attribute>
-			
+
 			<xsl:apply-templates />
 			<xsl:element name="product">
 				<xsl:element name="producer">
