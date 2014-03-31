@@ -11,20 +11,24 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.epam.util.HTMLWriter;
 
-public class ShowSubcategoriesAction implements Action {
+public class ShowProductsAction implements Action {
 
 	@Override
-	public void execute(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+	public void execute(HttpServletRequest req, HttpServletResponse resp)
+			throws IOException {
 		PrintWriter resultWriter = resp.getWriter();
 
 		InputStream styleSheet = ShowSubcategoriesAction.class
-				.getResourceAsStream("/showSubcategories.xsl");
-		InputStream catalog = ShowSubcategoriesAction.class
+				.getResourceAsStream("/showProducts.xsl");
+		InputStream shop = ShowSubcategoriesAction.class
 				.getResourceAsStream("/shop.xml");
 		String catName = req.getParameter("catName");
+		String subcatName = req.getParameter("subcatName");
 		Map<String, String> paramsMap = new HashMap<String, String>();
 		paramsMap.put("catName", catName);
-		HTMLWriter.write(styleSheet, catalog, resultWriter, paramsMap);
+		paramsMap.put("subcatName", subcatName);
+		HTMLWriter.write(styleSheet, shop, resultWriter, paramsMap);
+		
 	}
 
 }

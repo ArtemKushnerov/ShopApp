@@ -4,13 +4,23 @@
 	xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
 
 	<xsl:template match="/shop">
+
+		<xsl:param name="catName" />
+
 		<html>
 			<body>
-				<xsl:for-each select="category[@name='cat1']/subcategory">
+				<xsl:for-each select="category[@name=$catName]/subcategory">
+					<xsl:variable name="subcatName">
+						<xsl:value-of select="@name" />
+					</xsl:variable>
+
 					<p>
-						<a href="#">
+						<a
+							href="Controller?action=showProducts&amp;catName={$catName}&amp;subcatName={$subcatName}">
 							<xsl:value-of select="@name" />
-							(<xsl:value-of select="count(.//product)" />)
+							(
+							<xsl:value-of select="count(.//product)" />
+							)
 						</a>
 					</p>
 				</xsl:for-each>

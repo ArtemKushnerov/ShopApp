@@ -7,10 +7,15 @@
 		<html>
 			<body>
 				<xsl:for-each select="category">
+					<xsl:variable name="catName">
+						<xsl:value-of select="@name" />
+					</xsl:variable>
 					<p>
-						<a href="#">
+						<a href="Controller?action=showSubcategories&amp;catName={$catName}">
 							<xsl:value-of select="@name" />
-							(<xsl:value-of select="count(.//product)" />)
+							(
+							<xsl:value-of select="count(.//product)" />
+							)
 						</a>
 					</p>
 				</xsl:for-each>

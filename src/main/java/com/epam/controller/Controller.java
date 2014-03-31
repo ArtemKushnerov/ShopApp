@@ -24,7 +24,12 @@ public class Controller extends HttpServlet {
 		String actionName = req
 				.getParameter("action");
 		Action action = ActionFactory.getAction(actionName);
-		action.execute(req, resp);
+		try {
+			action.execute(req, resp);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	@Override
