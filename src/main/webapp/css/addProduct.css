@@ -1,0 +1,15 @@
+.error {
+	color: red;
+}
+
+.lab{
+  }
+.cont{
+    margin-left: 100px;
+}
+label.error{
+    margin-bottom:-10px;
+    margin-top:-10px;
+    color: #D44950;
+    vertical-align: top;
+}

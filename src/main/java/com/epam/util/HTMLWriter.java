@@ -2,7 +2,6 @@ package com.epam.util;
 
 import java.io.InputStream;
 import java.io.Writer;
-import java.util.HashMap;
 import java.util.Map;
 
 import javax.xml.transform.Source;
@@ -26,11 +25,11 @@ public class HTMLWriter {
 		}
 		Source text = new StreamSource(data);
 		StreamResult streamResult = new StreamResult(resultWriter);
-		if (paramsMap.length !=0) {
+		if (paramsMap.length != 0) {
 			for (String key : paramsMap[0].keySet()) {
 				t.setParameter(key, paramsMap[0].get(key));
 			}
-		}		
+		}
 		try {
 			t.transform(text, streamResult);
 		} catch (TransformerException e) {
@@ -38,8 +37,10 @@ public class HTMLWriter {
 			e.printStackTrace();
 		}
 	}
+
 	public static void save(InputStream stylesheet, InputStream data,
-			Writer resultWriter, Map<String, String>... paramsMap) {
+			Writer resultWriter, Map<String, Object> paramsMap,
+			Map<String, String> errors) {
 		StreamSource styleSource = new StreamSource(stylesheet);
 		Transformer t = null;
 		try {
@@ -49,13 +50,13 @@ public class HTMLWriter {
 		}
 		Source text = new StreamSource(data);
 		StreamResult streamResult = new StreamResult(resultWriter);
-		if (paramsMap.length !=0) {
-			for (String key : paramsMap[0].keySet()) {
-				t.setParameter(key, paramsMap[0].get(key));
-			}
+
+		for (String key : paramsMap.keySet()) {
+			t.setParameter(key, paramsMap.get(key));
 		}
+
 		t.setParameter("validator", new Validator());
-		t.setParameter("errors", (Object)paramsMap[1]);
+		t.setParameter("errors",  errors);
 		try {
 			t.transform(text, streamResult);
 		} catch (TransformerException e) {
@@ -63,8 +64,5 @@ public class HTMLWriter {
 			e.printStackTrace();
 		}
 	}
-	
-	
-
 
 }

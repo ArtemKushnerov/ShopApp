@@ -56,7 +56,7 @@
 					<xsl:value-of select="$color" />
 				</xsl:element>
 				<xsl:choose>
-					<xsl:when test="$notInStock">
+					<xsl:when test="not($notInStock)">
 						<xsl:element name="price">
 							<xsl:value-of select="$price" />
 						</xsl:element>

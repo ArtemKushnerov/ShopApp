@@ -9,6 +9,7 @@ import java.io.Writer;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -18,16 +19,17 @@ public class SaveProductAction implements Action {
 
 	@Override
 	public void execute(HttpServletRequest req, HttpServletResponse resp)
-			throws IOException {
+			throws IOException, ServletException {
 		String catName = req.getParameter("catName");
 		String subcatName = req.getParameter("subcatName");
 
 		String model = req.getParameter("model");
 		String color = req.getParameter("color");
 		String dateOfIssue = req.getParameter("dateOfIssue");
-		String price = req.getParameter("price");
+		String price = req.getParameter("price") == null ? "" : req
+				.getParameter("price");
 		String producer = req.getParameter("producer");
-		String notInStock = req.getParameter("notInStock");
+		boolean notInStock = "true".equals(req.getParameter("notInStock"));
 
 		InputStream styleSheet = SaveProductAction.class
 				.getResourceAsStream("/saveProduct.xsl");
@@ -36,7 +38,7 @@ public class SaveProductAction implements Action {
 
 		Writer resultWriter = new StringWriter();
 
-		Map<String, String> transParams = new HashMap<String, String>();
+		Map<String, Object> transParams = new HashMap<String, Object>();
 		transParams.put("catName", catName);
 		transParams.put("subcatName", subcatName);
 		transParams.put("model", model);
@@ -45,21 +47,32 @@ public class SaveProductAction implements Action {
 		transParams.put("price", price);
 		transParams.put("producer", producer);
 		transParams.put("notInStock", notInStock);
-		Map<String,String> errors = new HashMap<String,String>();
-		
-		HTMLWriter.save(styleSheet, catalog, resultWriter, transParams,errors);
 
-		System.out.println(errors.entrySet());
-		String pathToCatalog = req.getServletContext().getRealPath("WEB-INF/classes/shop.xml");	
-		File catalogFile=new File(pathToCatalog); //"d:/catalog.xml"
-		Writer fileWriter = new PrintWriter(catalogFile, "UTF-8");
-		fileWriter.write(resultWriter.toString());
-		fileWriter.flush();
-		fileWriter.close();
+		Map<String, String> errors = new HashMap<String, String>();
 
-		String redirect = "Controller?action=showProducts&catName="+catName+"&subcatName="+
-				subcatName;
+		HTMLWriter.save(styleSheet, catalog, resultWriter, transParams, errors);
+
+		if (errors.isEmpty()) {
+			String pathToCatalog = req.getServletContext().getRealPath(
+					"WEB-INF/classes/shop.xml");
+			File catalogFile = new File(pathToCatalog); 
+			Writer fileWriter = new PrintWriter(catalogFile, "UTF-8");
+			fileWriter.write(resultWriter.toString());
+			fileWriter.flush();
+			fileWriter.close();
+			String redirect = "Controller?action=showProducts&catName="
+					+ catName + "&subcatName=" + subcatName;
 			resp.sendRedirect(redirect);
+
+		} else {
+			String redirect = "Controller?action=addNewProduct&catName="
+					+ catName + "&subcatName=" + subcatName;
+			
+			req.setAttribute("errors", errors);
+			req.getRequestDispatcher(redirect).forward(req, resp);;
+			
+		}
+
 	}
 
 }
