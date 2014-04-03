@@ -9,22 +9,20 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.epam.util.HTMLWriter;
+import com.epam.util.XSLManager;
+
 
 public class ShowSubcategoriesAction implements Action {
 
 	@Override
 	public void execute(HttpServletRequest req, HttpServletResponse resp) throws IOException {
 		PrintWriter resultWriter = resp.getWriter();
-
-		InputStream styleSheet = ShowSubcategoriesAction.class
-				.getResourceAsStream("/showSubcategories.xsl");
-		InputStream catalog = ShowSubcategoriesAction.class
+		InputStream shop = ShowSubcategoriesAction.class
 				.getResourceAsStream("/shop.xml");
 		String catName = req.getParameter("catName");
-		Map<String, String> paramsMap = new HashMap<String, String>();
+		Map<String, Object> paramsMap = new HashMap<String, Object>();
 		paramsMap.put("catName", catName);
-		HTMLWriter.write(styleSheet, catalog, resultWriter, paramsMap);
+		XSLManager.makeTransform("/showSubcategories.xsl", shop, resultWriter, paramsMap);
 	}
 
 }

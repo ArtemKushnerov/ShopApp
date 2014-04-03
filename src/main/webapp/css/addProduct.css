@@ -2,14 +2,38 @@
 	color: red;
 }
 
-.lab{
-  }
-.cont{
-    margin-left: 100px;
+.lab {
+	float: left;
 }
-label.error{
-    margin-bottom:-10px;
-    margin-top:-10px;
-    color: #D44950;
-    vertical-align: top;
+
+.cont {
+	margin-left: 85px;
+}
+
+label.error {
+	margin-bottom: 20px;
+	color: #D44950;
+	vertical-align: top;
+}
+
+input {
+	margin-bottom: 20px;
+}
+
+.myButton {
+	border-radius: 5px;
+	border: 2px solid #6495ED;
+	background-color: #ffffff;
+	padding: 2px 15px 2px 15px;
+	margin: 5px;
+}
+
+#main{
+	display: table;
+	margin: 10% auto;
+	border: 1px solid black;
+	padding:30px;
+}
+.buttonsBar{
+	text-align:center;
 }

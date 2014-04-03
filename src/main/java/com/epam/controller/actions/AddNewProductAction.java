@@ -9,7 +9,8 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.epam.util.HTMLWriter;
+import com.epam.util.XSLManager;
+
 
 public class AddNewProductAction implements Action {
 
@@ -18,21 +19,20 @@ public class AddNewProductAction implements Action {
 			throws IOException {
 
 		PrintWriter resultWriter = resp.getWriter();
-		InputStream styleSheet = AddNewProductAction.class
-				.getResourceAsStream("/addProductForm.xsl");
+		String styleSheet = "/addProductForm.xsl";
 		InputStream shop = AddNewProductAction.class
 				.getResourceAsStream("/shop.xml");
 		String catName = req.getParameter("catName");
 		String subcatName = req.getParameter("subcatName");
-		Map<String, String> paramsMap = new HashMap<String, String>();
+		Map<String, Object> paramsMap = new HashMap<String, Object>();
 		paramsMap.put("catName", catName);
 		paramsMap.put("subcatName", subcatName);
 		addPreviousValues(req, paramsMap);
-		HTMLWriter.write(styleSheet, shop, resultWriter, paramsMap);
+		XSLManager.makeTransform(styleSheet, shop, resultWriter, paramsMap);
 	}
 
 	private void addPreviousValues(HttpServletRequest req,
-			Map<String, String> paramsMap) {
+			Map<String, Object> paramsMap) {
 		Map<String,String> errors = (Map<String, String>) req.getAttribute("errors");
 		if (errors != null) {
 			paramsMap.put("model", req.getParameter("model"));

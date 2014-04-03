@@ -13,7 +13,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.epam.util.HTMLWriter;
+import com.epam.util.XSLManager;
 
 public class SaveProductAction implements Action {
 
@@ -31,8 +31,7 @@ public class SaveProductAction implements Action {
 		String producer = req.getParameter("producer");
 		boolean notInStock = "true".equals(req.getParameter("notInStock"));
 
-		InputStream styleSheet = SaveProductAction.class
-				.getResourceAsStream("/saveProduct.xsl");
+		String styleSheet = "/saveProduct.xsl";
 		InputStream catalog = SaveProductAction.class
 				.getResourceAsStream("/shop.xml");
 
@@ -49,8 +48,8 @@ public class SaveProductAction implements Action {
 		transParams.put("notInStock", notInStock);
 
 		Map<String, String> errors = new HashMap<String, String>();
-
-		HTMLWriter.save(styleSheet, catalog, resultWriter, transParams, errors);
+		transParams.put("errors", errors);
+		XSLManager.makeTransform(styleSheet, catalog, resultWriter, transParams);
 
 		if (errors.isEmpty()) {
 			String pathToCatalog = req.getServletContext().getRealPath(

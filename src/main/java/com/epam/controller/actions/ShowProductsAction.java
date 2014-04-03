@@ -9,7 +9,7 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.epam.util.HTMLWriter;
+import com.epam.util.XSLManager;
 
 public class ShowProductsAction implements Action {
 
@@ -18,16 +18,14 @@ public class ShowProductsAction implements Action {
 			throws IOException {
 		PrintWriter resultWriter = resp.getWriter();
 
-		InputStream styleSheet = ShowSubcategoriesAction.class
-				.getResourceAsStream("/showProducts.xsl");
 		InputStream shop = ShowSubcategoriesAction.class
 				.getResourceAsStream("/shop.xml");
 		String catName = req.getParameter("catName");
 		String subcatName = req.getParameter("subcatName");
-		Map<String, String> paramsMap = new HashMap<String, String>();
+		Map<String, Object> paramsMap = new HashMap<String, Object>();
 		paramsMap.put("catName", catName);
 		paramsMap.put("subcatName", subcatName);
-		HTMLWriter.write(styleSheet, shop, resultWriter, paramsMap);
+		XSLManager.makeTransform("/showProducts.xsl", shop, resultWriter, paramsMap);
 		
 	}
 

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xsl:stylesheet version="1.0"
 	xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:validator="xalan://com.epam.util.Validator">
+	<xsl:import href="addProductForm.xsl" />
 
 	<xsl:param name="catName" />
 	<xsl:param name="subcatName" />
@@ -11,7 +12,6 @@
 	<xsl:param name="dateOfIssue" />
 	<xsl:param name="price" />
 	<xsl:param name="notInStock" />
-	<xsl:param name="validator" />
 	<xsl:param name="errors" />
 
 
@@ -24,6 +24,7 @@
 				<xsl:call-template name="copyNodes" />
 			</xsl:when>
 			<xsl:otherwise>
+				<xsl:apply-imports />
 			</xsl:otherwise>
 		</xsl:choose>
 	</xsl:template>

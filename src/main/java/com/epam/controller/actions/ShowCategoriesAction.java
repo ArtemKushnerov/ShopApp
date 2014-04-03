@@ -7,7 +7,7 @@ import java.io.PrintWriter;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.epam.util.HTMLWriter;
+import com.epam.util.XSLManager;
 
 public class ShowCategoriesAction implements Action {
 
@@ -15,11 +15,9 @@ public class ShowCategoriesAction implements Action {
 	public void execute(HttpServletRequest req, HttpServletResponse resp) throws IOException {
 		PrintWriter resultWriter = resp.getWriter();
 
-		InputStream styleSheet = ShowCategoriesAction.class
-				.getResourceAsStream("/showCategories.xsl");
 		InputStream shop = ShowCategoriesAction.class
 				.getResourceAsStream("/shop.xml");
-		HTMLWriter.write(styleSheet, shop, resultWriter);
+		XSLManager.makeTransform("/showCategories.xsl", shop, resultWriter);
 	}
 
 }

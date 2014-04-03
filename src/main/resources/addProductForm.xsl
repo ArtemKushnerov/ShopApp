@@ -37,65 +37,79 @@
 				</script>
 			</head>
 			<body>
-				<form
-					action="Controller?action=saveProduct&amp;catName={$catName}&amp;subcatName={$subcatName}"
-					method="POST">
-					<div>
+				<div id="main">
+					<form
+						action="Controller?action=saveProduct&amp;catName={$catName}&amp;subcatName={$subcatName}"
+						method="POST">
+
 						<label class="lab" for="model">Model</label>
 
-						<input type="text" id="model" name="model" value="{$model}"></input>
+						<div class="cont">
+							<input type="text" id="model" name="model" value="{$model}" />
+						</div>
 
 						<label class="error">
 							<xsl:value-of select="$modelError" />
 						</label>
-					</div>
-					<div>
+
+
 						<label class="lab" for="color">Color</label>
 
-						<input type="text" id="color" name="color" value="{$color}"></input>
+						<div class="cont">
+							<input type="text" id="color" name="color" value="{$color}" />
+						</div>
 
 						<label class="error">
 							<xsl:value-of select="$colorError" />
 						</label>
-					</div>
-					<div>
+
+
 						<label class="lab" for="dateOfIssue">Date of issue</label>
-
-						<input type="text" id="dateOfIssue" name="dateOfIssue"
-							value="{$dateOfIssue}"></input>
-
+						<div class="cont">
+							<input type="text" id="dateOfIssue" name="dateOfIssue"
+								value="{$dateOfIssue}" />
+						</div>
 						<label class="error">
 							<xsl:value-of select="$dateError" />
 						</label>
-					</div>
-					<div>
+
+
 						<label class="lab" for="producer">Producer</label>
-
-						<input type="text" id="producer" name="producer" value="{$producer}"></input>
-
+						<div class="cont">
+							<input type="text" id="producer" name="producer" value="{$producer}"></input>
+						</div>
 						<label class="error">
 							<xsl:value-of select="$producerError" />
 						</label>
-					</div>
-					<div>
+
+
 						<label class="lab" for="price">Price</label>
+						<div class="cont">
 
-						<input type="radio" name="notInStock" value="false"
-							onchange="enableTxt()" checked="checked" />
-						<input type="text" name="price" id="price" value="{$price}" />
-
+							<input type="text" name="price" value="{$price}" />
+							<input type="radio" name="notInStock" value="false"
+								onchange="enableTxt()" checked="checked" />
+						</div>
 						<label class="error">
 							<xsl:value-of select="$priceError" />
 						</label>
-					</div>
-					<div>
+
+
 						<label class="lab">Not in Stock</label>
+						<div class="cont">
+							<input type="radio" name="notInStock" value="true"
+								onchange="disableTxt()" />
+						</div>
 
-						<input type="radio" name="notInStock" value="true" onchange="disableTxt()" />
 
-						<input type="submit" />
-					</div>
-				</form>
+						<div class="buttonsBar">
+							<input class="myButton" type="submit" value="Add" />
+							<button class="myButton" onclick="javascript:history.back(); return false;">
+								Back
+							</button>
+						</div>
+					</form>
+				</div>
 			</body>
 		</html>
 	</xsl:template>
