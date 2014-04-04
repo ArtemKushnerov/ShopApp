@@ -5,10 +5,12 @@ import java.io.InputStream;
 import java.io.PrintWriter;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.locks.Lock;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.epam.util.RWLockSingleton;
 import com.epam.util.XSLManager;
 
 
@@ -27,8 +29,17 @@ public class AddNewProductAction implements Action {
 		Map<String, Object> paramsMap = new HashMap<String, Object>();
 		paramsMap.put("catName", catName);
 		paramsMap.put("subcatName", subcatName);
-		addPreviousValues(req, paramsMap);
-		XSLManager.makeTransform(styleSheet, shop, resultWriter, paramsMap);
+		addPreviousValues(req, paramsMap);		
+		Lock readLock = RWLockSingleton.INSTANCE.readLock();
+		readLock.lock();
+		try {
+			XSLManager.makeTransform(styleSheet, shop, resultWriter,
+					paramsMap);
+		} finally {
+			readLock.unlock();
+
+		}
+
 	}
 
 	private void addPreviousValues(HttpServletRequest req,
@@ -42,6 +53,7 @@ public class AddNewProductAction implements Action {
 			paramsMap.put("producer", req.getParameter("producer"));
 			paramsMap.put("notInStock", req.getParameter("notInStock"));
 			paramsMap.putAll(errors);
+			paramsMap.put("errors",errors);
 		}
 	}
 

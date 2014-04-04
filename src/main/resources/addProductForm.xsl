@@ -3,7 +3,7 @@
 <xsl:stylesheet version="1.0"
 	xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
 
-	<xsl:template match="/shop">
+	<xsl:template match="/shop" name="addingPage">
 
 		<xsl:param name="catName" />
 		<xsl:param name="subcatName" />
@@ -21,6 +21,7 @@
 		<xsl:param name="dateError" />
 		<xsl:param name="priceError" />
 		<xsl:param name="producerError" />
+
 
 		<html>
 			<head>
@@ -50,6 +51,7 @@
 
 						<label class="error">
 							<xsl:value-of select="$modelError" />
+							
 						</label>
 
 

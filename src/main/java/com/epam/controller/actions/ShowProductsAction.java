@@ -5,10 +5,12 @@ import java.io.InputStream;
 import java.io.PrintWriter;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.locks.Lock;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.epam.util.RWLockSingleton;
 import com.epam.util.XSLManager;
 
 public class ShowProductsAction implements Action {
@@ -25,7 +27,14 @@ public class ShowProductsAction implements Action {
 		Map<String, Object> paramsMap = new HashMap<String, Object>();
 		paramsMap.put("catName", catName);
 		paramsMap.put("subcatName", subcatName);
-		XSLManager.makeTransform("/showProducts.xsl", shop, resultWriter, paramsMap);
+		Lock readLock = RWLockSingleton.INSTANCE.readLock();
+		readLock.lock();
+		try {
+			XSLManager.makeTransform("/showProducts.xsl", shop, resultWriter, paramsMap);
+		} finally {
+			readLock.unlock();
+		}
+
 		
 	}
 

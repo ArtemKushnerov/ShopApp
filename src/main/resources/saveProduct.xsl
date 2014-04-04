@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xsl:stylesheet version="1.0"
-	xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:validator="xalan://com.epam.util.Validator">
-	<xsl:import href="addProductForm.xsl" />
+	xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:validatorHolder="xalan://com.epam.util.ValidatorHolder">
+	<xsl:import href="/workspace/shopApp/src/main/resources/addProductForm.xsl" />
+
 
 	<xsl:param name="catName" />
 	<xsl:param name="subcatName" />
@@ -13,6 +14,7 @@
 	<xsl:param name="price" />
 	<xsl:param name="notInStock" />
 	<xsl:param name="errors" />
+	<xsl:param name="validator" />
 
 
 	<xsl:output method="xml" indent="yes" />
@@ -20,11 +22,28 @@
 	<xsl:template match="/">
 		<xsl:choose>
 			<xsl:when
-				test="validator:validate($producer,$model,$color,$dateOfIssue,$price,$notInStock,$errors)">
+				test="validatorHolder:validate($validator,$producer,$model,$color,$dateOfIssue,$price,$notInStock)">
 				<xsl:call-template name="copyNodes" />
 			</xsl:when>
 			<xsl:otherwise>
-				<xsl:apply-imports />
+				<xsl:call-template name="addingPage">
+					<xsl:with-param name="catName" select="$catName" />
+					<xsl:with-param name="subcatName" select="$subcatName" />
+
+					<xsl:with-param name="model" select="$model" />
+					<xsl:with-param name="price" select="$price" />
+					<xsl:with-param name="producer" select="$producer" />
+					<xsl:with-param name="color" select="$color" />
+					<xsl:with-param name="notInStock" select="$notInStock" />
+					<xsl:with-param name="dateOfIssue" select="$dateOfIssue" />
+
+					<xsl:with-param name="modelError" select="validatorHolder:getModelError($validator)" />
+					<xsl:with-param name="priceError" select="validatorHolder:getPriceError($validator)" />
+					<xsl:with-param name="producerError" select="validatorHolder:getProducerError($validator)" />
+					<xsl:with-param name="colorError" select="validatorHolder:getColorError($validator)" />
+					<xsl:with-param name="dateError" select="validatorHolder:getDateError($validator)" />
+				</xsl:call-template>
+
 			</xsl:otherwise>
 		</xsl:choose>
 	</xsl:template>

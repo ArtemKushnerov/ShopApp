@@ -1,21 +1,22 @@
 package com.epam.util;
 
+import java.util.HashMap;
 import java.util.Map;
 
 public class Validator {
-	public static boolean validate(String producer, String model, String color,
-			String dateOfIssue, String price, boolean notInStock, Object err) {
-		Map<String, String> errors = (Map<String, String>) err;
+	private Map<String, String> errors = new HashMap<String, String>();
+
+	public boolean validate(String producer, String model, String color,
+			String dateOfIssue, String price, boolean notInStock) {
 		boolean priceIsValid = true;
 		if (!notInStock)
-			priceIsValid = validatePrice(price, errors);
-		return validateProducer(producer, errors)
-				& validateColor(color, errors) & validateModel(model, errors)
-				& priceIsValid & validateDate(dateOfIssue, errors);
+			priceIsValid = validatePrice(price);
+		return validateProducer(producer) & validateColor(color)
+				& validateModel(model) & priceIsValid
+				& validateDate(dateOfIssue);
 	}
 
-	private static boolean validateProducer(String producer,
-			Map<String, String> errors) {
+	private boolean validateProducer(String producer) {
 		if (isEmpty(producer)) {
 			errors.put("producerError", "field can not be empty");
 			return false;
@@ -23,8 +24,7 @@ public class Validator {
 			return true;
 	}
 
-	private static boolean validateModel(String model,
-			Map<String, String> errors) {
+	private boolean validateModel(String model) {
 		if (isEmpty(model)) {
 			errors.put("modelError", "field can not be empty");
 			return false;
@@ -38,22 +38,20 @@ public class Validator {
 		return true;
 	}
 
-	private static boolean validateColor(String color,
-			Map<String, String> errors) {
+	private boolean validateColor(String color) {
 		if (isEmpty(color)) {
 			errors.put("colorError", "field can not be empty");
 			return false;
 		} else
 			return true;
 	}
-	
-	private static boolean validateDate(String date, Map<String, String> errors) {
+
+	private boolean validateDate(String date) {
 		if (isEmpty(date)) {
 			errors.put("dateError", "field can not be empty");
 			return false;
 		}
-		if (!date
-				.matches("^[0-3][0-9]-[0-1][0-9]-[0-9]{4}$")) {
+		if (!date.matches("^[0-3][0-9]-[0-1][0-9]-[0-9]{4}$")) {
 			errors.put("dateError", "date must be in dd-MM-YYYY format");
 			return false;
 		}
@@ -61,8 +59,7 @@ public class Validator {
 		return true;
 	}
 
-	private static boolean validatePrice(String price,
-			Map<String, String> errors) {
+	private boolean validatePrice(String price) {
 		if (isEmpty(price)) {
 			errors.put("priceError", "field can not be empty");
 			return false;
@@ -75,8 +72,12 @@ public class Validator {
 		return true;
 	}
 
-	static boolean isEmpty(String str) {
+	private boolean isEmpty(String str) {
 		return str.length() == 0 || str == null;
+	}
+
+	public Map<String, String> getErrors() {
+		return errors;
 	}
 
 }

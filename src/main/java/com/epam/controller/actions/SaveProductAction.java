@@ -8,11 +8,14 @@ import java.io.StringWriter;
 import java.io.Writer;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.locks.Lock;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.epam.util.RWLockSingleton;
+import com.epam.util.Validator;
 import com.epam.util.XSLManager;
 
 public class SaveProductAction implements Action {
@@ -46,32 +49,50 @@ public class SaveProductAction implements Action {
 		transParams.put("price", price);
 		transParams.put("producer", producer);
 		transParams.put("notInStock", notInStock);
+		Validator validator = new Validator();
+		transParams.put("validator", validator);
 
-		Map<String, String> errors = new HashMap<String, String>();
-		transParams.put("errors", errors);
-		XSLManager.makeTransform(styleSheet, catalog, resultWriter, transParams);
+		String pathToCatalog = req.getServletContext().getRealPath(
+				"WEB-INF/classes/shop.xml");
+		File catalogFile = new File(pathToCatalog);
+		long lastMod = catalogFile.lastModified();
 
-		if (errors.isEmpty()) {
-			String pathToCatalog = req.getServletContext().getRealPath(
-					"WEB-INF/classes/shop.xml");
-			File catalogFile = new File(pathToCatalog); 
-			Writer fileWriter = new PrintWriter(catalogFile, "UTF-8");
-			fileWriter.write(resultWriter.toString());
-			fileWriter.flush();
-			fileWriter.close();
+		Lock readLock = RWLockSingleton.INSTANCE.readLock();
+		readLock.lock();
+		try {
+			XSLManager.makeTransform(styleSheet, catalog, resultWriter,
+					transParams);
+		} finally {
+			readLock.unlock();
+		}
+
+		if (validator.getErrors().isEmpty()) {
+			Lock writeLock = RWLockSingleton.INSTANCE.writeLock();
+			writeLock.lock();
+			try {
+				if (lastMod != catalogFile.lastModified()) {
+					XSLManager.makeTransform(styleSheet, catalog, resultWriter,
+							transParams);
+				}
+				Writer fileWriter = new PrintWriter(catalogFile, "UTF-8");
+				fileWriter.write(resultWriter.toString());
+				fileWriter.flush();
+				fileWriter.close();
+
+			} finally {
+				writeLock.unlock();
+			}
 			String redirect = "Controller?action=showProducts&catName="
 					+ catName + "&subcatName=" + subcatName;
 			resp.sendRedirect(redirect);
 
 		} else {
-			String redirect = "Controller?action=addNewProduct&catName="
-					+ catName + "&subcatName=" + subcatName;
-			
-			req.setAttribute("errors", errors);
-			req.getRequestDispatcher(redirect).forward(req, resp);;
-			
+			String fwd = "Controller?action=addNewProduct&catName=" + catName
+					+ "&subcatName=" + subcatName;
+
+			req.setAttribute("errors", validator.getErrors());
+			req.getRequestDispatcher(fwd).forward(req, resp);
 		}
 
 	}
-
 }
