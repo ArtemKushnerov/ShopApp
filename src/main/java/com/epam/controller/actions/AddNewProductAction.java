@@ -11,29 +11,32 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.epam.util.RWLockSingleton;
+import com.epam.util.StringHolder;
 import com.epam.util.XSLManager;
 
 
 public class AddNewProductAction implements Action {
 
+	
+	private static final String ADD_PRODUCT_XSL = "/addProductForm.xsl";
+	
 	@Override
 	public void execute(HttpServletRequest req, HttpServletResponse resp)
 			throws IOException {
 
 		PrintWriter resultWriter = resp.getWriter();
-		String styleSheet = "/addProductForm.xsl";
 		InputStream shop = AddNewProductAction.class
-				.getResourceAsStream("/shop.xml");
-		String catName = req.getParameter("catName");
-		String subcatName = req.getParameter("subcatName");
+				.getResourceAsStream(StringHolder.SHOP_XML);
+		String catName = req.getParameter(StringHolder.CAT_NAME);
+		String subcatName = req.getParameter(StringHolder.SUBCAT_NAME);
 		Map<String, Object> paramsMap = new HashMap<String, Object>();
-		paramsMap.put("catName", catName);
-		paramsMap.put("subcatName", subcatName);
-		addPreviousValues(req, paramsMap);		
-		Lock readLock = RWLockSingleton.INSTANCE.readLock();
+		paramsMap.put(StringHolder.CAT_NAME, catName);
+		paramsMap.put(StringHolder.SUBCAT_NAME, subcatName);
+/*		addPreviousValues(req, paramsMap);		
+*/		Lock readLock = RWLockSingleton.INSTANCE.readLock();
 		readLock.lock();
 		try {
-			XSLManager.makeTransform(styleSheet, shop, resultWriter,
+			XSLManager.makeTransform(ADD_PRODUCT_XSL, shop, resultWriter,
 					paramsMap);
 		} finally {
 			readLock.unlock();
@@ -42,7 +45,7 @@ public class AddNewProductAction implements Action {
 
 	}
 
-	private void addPreviousValues(HttpServletRequest req,
+/*	private void addPreviousValues(HttpServletRequest req,
 			Map<String, Object> paramsMap) {
 		Map<String,String> errors = (Map<String, String>) req.getAttribute("errors");
 		if (errors != null) {
@@ -56,5 +59,5 @@ public class AddNewProductAction implements Action {
 			paramsMap.put("errors",errors);
 		}
 	}
-
+*/
 }

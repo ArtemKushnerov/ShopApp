@@ -15,14 +15,16 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.epam.util.RWLockSingleton;
+import com.epam.util.StringHolder;
 import com.epam.util.Validator;
 import com.epam.util.XSLManager;
 
 public class SaveProductAction implements Action {
 
-	@Override
-	public void execute(HttpServletRequest req, HttpServletResponse resp)
-			throws IOException, ServletException {
+	private static final String SAVE_PRODUCT_XSL = "/saveProduct.xsl";
+
+	private void fillParamsMap(Map<String, Object> paramsMap,
+			HttpServletRequest req) {
 		String catName = req.getParameter("catName");
 		String subcatName = req.getParameter("subcatName");
 
@@ -34,34 +36,39 @@ public class SaveProductAction implements Action {
 		String producer = req.getParameter("producer");
 		boolean notInStock = "true".equals(req.getParameter("notInStock"));
 
-		String styleSheet = "/saveProduct.xsl";
-		InputStream catalog = SaveProductAction.class
-				.getResourceAsStream("/shop.xml");
+		paramsMap.put("catName", catName);
+		paramsMap.put("subcatName", subcatName);
+		paramsMap.put("model", model);
+		paramsMap.put("color", color);
+		paramsMap.put("dateOfIssue", dateOfIssue);
+		paramsMap.put("price", price);
+		paramsMap.put("producer", producer);
+		paramsMap.put("notInStock", notInStock);
+	}
 
-		Writer resultWriter = new StringWriter();
+	@Override
+	public void execute(HttpServletRequest req, HttpServletResponse resp)
+			throws IOException, ServletException {
+		String catName = req.getParameter("catName");
+		String subcatName = req.getParameter("subcatName");
 
-		Map<String, Object> transParams = new HashMap<String, Object>();
-		transParams.put("catName", catName);
-		transParams.put("subcatName", subcatName);
-		transParams.put("model", model);
-		transParams.put("color", color);
-		transParams.put("dateOfIssue", dateOfIssue);
-		transParams.put("price", price);
-		transParams.put("producer", producer);
-		transParams.put("notInStock", notInStock);
+		InputStream shop = SaveProductAction.class
+				.getResourceAsStream(StringHolder.SHOP_XML);
+
+		Writer buffer = new StringWriter();
+
+		Map<String, Object> paramsMap = new HashMap<String, Object>();
+		fillParamsMap(paramsMap, req);
 		Validator validator = new Validator();
-		transParams.put("validator", validator);
-
-		String pathToCatalog = req.getServletContext().getRealPath(
-				"WEB-INF/classes/shop.xml");
-		File catalogFile = new File(pathToCatalog);
-		long lastMod = catalogFile.lastModified();
+		paramsMap.put("validator", validator);
+		
+		File shopFile = new File(StringHolder.SHOP_REAL_PATH);
+		long lastMod = shopFile.lastModified();
 
 		Lock readLock = RWLockSingleton.INSTANCE.readLock();
 		readLock.lock();
 		try {
-			XSLManager.makeTransform(styleSheet, catalog, resultWriter,
-					transParams);
+			XSLManager.makeTransform(SAVE_PRODUCT_XSL, shop, buffer, paramsMap);
 		} finally {
 			readLock.unlock();
 		}
@@ -70,29 +77,26 @@ public class SaveProductAction implements Action {
 			Lock writeLock = RWLockSingleton.INSTANCE.writeLock();
 			writeLock.lock();
 			try {
-				if (lastMod != catalogFile.lastModified()) {
-					XSLManager.makeTransform(styleSheet, catalog, resultWriter,
-							transParams);
+				if (lastMod != shopFile.lastModified()) {
+					XSLManager.makeTransform(SAVE_PRODUCT_XSL, shop, buffer,
+							paramsMap);
 				}
-				Writer fileWriter = new PrintWriter(catalogFile, "UTF-8");
-				fileWriter.write(resultWriter.toString());
+				Writer fileWriter = new PrintWriter(shopFile, "UTF-8");
+				fileWriter.write(buffer.toString());
 				fileWriter.flush();
 				fileWriter.close();
 
 			} finally {
 				writeLock.unlock();
 			}
-			String redirect = "Controller?action=showProducts&catName="
-					+ catName + "&subcatName=" + subcatName;
-			resp.sendRedirect(redirect);
+			resp.sendRedirect("Controller?action=showProducts&catName="
+					+ catName + "&subcatName=" + subcatName);
 
 		} else {
-			String fwd = "Controller?action=addNewProduct&catName=" + catName
-					+ "&subcatName=" + subcatName;
-
-			req.setAttribute("errors", validator.getErrors());
-			req.getRequestDispatcher(fwd).forward(req, resp);
+			Writer out = resp.getWriter();
+			out.write(buffer.toString());
 		}
 
 	}
+
 }

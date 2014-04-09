@@ -5,6 +5,9 @@
          version="3.0">
          
   <display-name>Archetype Created Web Application</display-name>
+      <listener>
+		<listener-class>com.epam.util.StringHolder</listener-class>
+	</listener>
   
   	<welcome-file-list>
 		<welcome-file>index.jsp</welcome-file>

@@ -13,11 +13,8 @@
 	<xsl:param name="dateOfIssue" />
 	<xsl:param name="price" />
 	<xsl:param name="notInStock" />
-	<xsl:param name="errors" />
 	<xsl:param name="validator" />
 
-
-	<xsl:output method="xml" indent="yes" />
 
 	<xsl:template match="/">
 		<xsl:choose>

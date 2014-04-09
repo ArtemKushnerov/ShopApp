@@ -2,6 +2,7 @@
 
 <xsl:stylesheet version="1.0"
 	xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
+	<xsl:output method="html" />
 
 	<xsl:template match="/shop" name="addingPage">
 
@@ -51,7 +52,7 @@
 
 						<label class="error">
 							<xsl:value-of select="$modelError" />
-							
+
 						</label>
 
 
@@ -88,9 +89,9 @@
 						<label class="lab" for="price">Price</label>
 						<div class="cont">
 
-							<input type="text" name="price" value="{$price}" />
-							<input type="radio" name="notInStock" value="false"
-								onchange="enableTxt()" checked="checked" />
+							<input type="text" name="price" value="{$price}" disabled="disabled"/>
+							<input type="radio" name="notInStock"  
+								onchange="enableTxt()"  />
 						</div>
 						<label class="error">
 							<xsl:value-of select="$priceError" />
@@ -99,7 +100,7 @@
 
 						<label class="lab">Not in Stock</label>
 						<div class="cont">
-							<input type="radio" name="notInStock" value="true"
+							<input type="radio" name="notInStock"  checked="checked"
 								onchange="disableTxt()" />
 						</div>
 

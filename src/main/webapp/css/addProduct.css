@@ -30,7 +30,6 @@ input {
 
 #main{
 	display: table;
-	margin: 10% auto;
 	border: 1px solid black;
 	padding:30px;
 }

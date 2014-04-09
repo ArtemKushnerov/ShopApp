@@ -11,9 +11,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.epam.util.RWLockSingleton;
+import com.epam.util.StringHolder;
 import com.epam.util.XSLManager;
 
 public class ShowProductsAction implements Action {
+
+	private static final String SHOW_PRODUCT_XSL = "/showProducts.xsl";
 
 	@Override
 	public void execute(HttpServletRequest req, HttpServletResponse resp)
@@ -21,21 +24,22 @@ public class ShowProductsAction implements Action {
 		PrintWriter resultWriter = resp.getWriter();
 
 		InputStream shop = ShowSubcategoriesAction.class
-				.getResourceAsStream("/shop.xml");
-		String catName = req.getParameter("catName");
-		String subcatName = req.getParameter("subcatName");
+				.getResourceAsStream(StringHolder.SHOP_XML);
+
 		Map<String, Object> paramsMap = new HashMap<String, Object>();
-		paramsMap.put("catName", catName);
-		paramsMap.put("subcatName", subcatName);
+		paramsMap.put(StringHolder.CAT_NAME,
+				req.getParameter(StringHolder.CAT_NAME));
+		paramsMap.put(StringHolder.SUBCAT_NAME,
+				req.getParameter(StringHolder.SUBCAT_NAME));
 		Lock readLock = RWLockSingleton.INSTANCE.readLock();
 		readLock.lock();
 		try {
-			XSLManager.makeTransform("/showProducts.xsl", shop, resultWriter, paramsMap);
+			XSLManager.makeTransform(SHOW_PRODUCT_XSL, shop, resultWriter,
+					paramsMap);
 		} finally {
 			readLock.unlock();
 		}
 
-		
 	}
 
 }
