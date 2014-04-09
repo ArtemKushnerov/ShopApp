@@ -8,22 +8,37 @@
 		<xsl:param name="catName" />
 
 		<html>
-			<body>
-				<xsl:for-each select="category[@name=$catName]/subcategory">
-					<xsl:variable name="subcatName">
-						<xsl:value-of select="@name" />
-					</xsl:variable>
+			<head>
+				<link href="css/style.css" rel="stylesheet" />
+			</head>
 
-					<p>
-						<a
-							href="Controller?action=showProducts&amp;catName={$catName}&amp;subcatName={$subcatName}">
+			<body>
+				<div id="main">
+					<xsl:for-each select="category[@name=$catName]/subcategory">
+						<xsl:variable name="subcatName">
 							<xsl:value-of select="@name" />
-							(
-							<xsl:value-of select="count(.//product)" />
-							)
-						</a>
-					</p>
-				</xsl:for-each>
+						</xsl:variable>
+
+						<p>
+							<a
+								href="Controller?action=showProducts&amp;catName={$catName}&amp;subcatName={$subcatName}">
+								<xsl:value-of select="@name" />
+								(
+								<xsl:value-of select="count(.//product)" />
+								)
+							</a>
+						</p>
+					</xsl:for-each>
+					<div class="buttonsBar">
+
+						<button class="myButton">
+							<a href="Controller?action=showCategories">
+								Back
+							</a>
+						</button>
+
+					</div>
+				</div>
 			</body>
 		</html>
 	</xsl:template>

@@ -5,20 +5,26 @@
 
 	<xsl:template match="/shop">
 		<html>
+			<head>
+				<link href="css/style.css" rel="stylesheet" />
+			</head>
+
 			<body>
-				<xsl:for-each select="category">
-					<xsl:variable name="catName">
-						<xsl:value-of select="@name" />
-					</xsl:variable>
-					<p>
-						<a href="Controller?action=showSubcategories&amp;catName={$catName}">
+				<div id="main">
+					<xsl:for-each select="category">
+						<xsl:variable name="catName">
 							<xsl:value-of select="@name" />
-							(
-							<xsl:value-of select="count(.//product)" />
-							)
-						</a>
-					</p>
-				</xsl:for-each>
+						</xsl:variable>
+						<p>
+							<a href="Controller?action=showSubcategories&amp;catName={$catName}">
+								<xsl:value-of select="@name" />
+								(
+								<xsl:value-of select="count(.//product)" />
+								)
+							</a>
+						</p>
+					</xsl:for-each>
+				</div>
 			</body>
 		</html>
 	</xsl:template>

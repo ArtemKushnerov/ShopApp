@@ -1,38 +1,27 @@
-.error {
-	color: red;
-}
-
 .lab {
 	float: left;
 }
 
-.cont {
-	margin-left: 85px;
-}
-
-label.error {
-	margin-bottom: 20px;
+.error {
 	color: #D44950;
-	vertical-align: top;
+	display:inline;
+	margin-left:20px;
 }
 
 input {
 	margin-bottom: 20px;
+	
 }
 
-.myButton {
-	border-radius: 5px;
-	border: 2px solid #6495ED;
-	background-color: #ffffff;
-	padding: 2px 15px 2px 15px;
-	margin: 5px;
+
+label{
+	width: 200px;
 }
 
 #main{
-	display: table;
-	border: 1px solid black;
-	padding:30px;
+	border:1px solid black;
 }
-.buttonsBar{
-	text-align:center;
+
+.buttonsBar {
+	text-align: center;
 }
