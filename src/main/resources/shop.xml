@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<shop>
+<shop >
 	<category name='cat1'>
 		<subcategory name="sub11">
 			<product name="prod1">
 				<producer>asd</producer>
-				<model>abc12</model>
+				<model>ab122</model>
 				<date_of_issue>2012-01-01</date_of_issue>
 				<color>red</color>
 				<price>12</price>
 			</product>
 			<product name="prod2">
 				<producer>hhhhhh</producer>
-				<model>abc12</model>
+				<model>ab142</model>
 				<date_of_issue>2015-02-07</date_of_issue>
 				<color>blue</color>
 				<not_in_stock/>
@@ -22,7 +22,7 @@
 		<subcategory name="sub21">
 			<product name="prod3">
 				<producer>iiiiiooo</producer>
-				<model>rtc45</model>
+				<model>rt945</model>
 				<date_of_issue>2012-05-05</date_of_issue>
 				<color>orange</color>
 				<price>56</price>

@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xsl:stylesheet version="1.0"
-	xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:validatorHolder="xalan://com.epam.util.ValidatorHolder">
+	xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
+	xmlns:validatorHandler="xalan://com.epam.util.ValidatorHandler"
+>
 	<xsl:import href="/workspace/shopApp/src/main/resources/addProductForm.xsl" />
 
 
@@ -19,7 +21,7 @@
 	<xsl:template match="/">
 		<xsl:choose>
 			<xsl:when
-				test="validatorHolder:validate($validator,$producer,$model,$color,$dateOfIssue,$price,$notInStock)">
+				test="validatorHandler:validate($validator,$producer,$model,$color,$dateOfIssue,$price,$notInStock)">
 				<xsl:call-template name="copyNodes" />
 			</xsl:when>
 			<xsl:otherwise>
@@ -34,11 +36,17 @@
 					<xsl:with-param name="notInStock" select="$notInStock" />
 					<xsl:with-param name="dateOfIssue" select="$dateOfIssue" />
 
-					<xsl:with-param name="modelError" select="validatorHolder:getModelError($validator)" />
-					<xsl:with-param name="priceError" select="validatorHolder:getPriceError($validator)" />
-					<xsl:with-param name="producerError" select="validatorHolder:getProducerError($validator)" />
-					<xsl:with-param name="colorError" select="validatorHolder:getColorError($validator)" />
-					<xsl:with-param name="dateError" select="validatorHolder:getDateError($validator)" />
+					<xsl:with-param name="modelError"
+						select="validatorHandler:getModelError($validator)" />
+					<xsl:with-param name="priceError"
+						select="validatorHandler:getPriceError($validator)" />
+					<xsl:with-param name="producerError"
+						select="validatorHandler:getProducerError($validator)" />
+					<xsl:with-param name="colorError"
+						select="validatorHandler:getColorError($validator)" />
+					<xsl:with-param name="dateError"
+						select="validatorHandler:getDateError($validator)" />
+
 				</xsl:call-template>
 
 			</xsl:otherwise>

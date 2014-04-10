@@ -42,7 +42,7 @@
 			</head>
 			<body>
 				<div id="main">
-					<form
+					<form id="product_form"
 						action="Controller?action=saveProduct&amp;catName={$catName}&amp;subcatName={$subcatName}"
 						method="POST">
 
@@ -91,21 +91,19 @@
 						</div>
 
 						<div class="cont">
-							<label class="lab">Not in Stock</label>
+							<label class="lab">Not in stock</label>
 							<input type="radio" name="notInStock" value="true"
 								onchange="disableTxt()" />
 						</div>
 
 						<div class="buttonsBar">
 
+							<a class="myButton"
+								href="Controller?action=showProducts&amp;catName={$catName}&amp;subcatName={$subcatName}">Back</a>
 
-							<a
-								href="Controller?action=showProducts&amp;catName={$catName}&amp;subcatName={$subcatName}">
-								<buntton class="myButton">Back</buntton>
-							</a>
+							<a class="myButton" href="" onclick="document.getElementById('product_form').submit(); return false;">Add</a>
 
 						</div>
-						<input class="myButton" type="submit" value="Add" />
 					</form>
 				</div>
 			</body>

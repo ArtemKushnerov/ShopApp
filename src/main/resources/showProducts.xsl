@@ -53,17 +53,14 @@
 					</table>
 					<div class="buttonsBar">
 
-						<button class="myButton">
-							<a href="Controller?action=showSubcategories&amp;catName={$catName}">
-								Back
-							</a>
-						</button>
-						<button class="myButton">
-							<a
-								href="Controller?action=addNewProduct&amp;catName={$catName}&amp;subcatName={$subcatName}">
-								Add
-							</a>
-						</button>
+						<a class="myButton"
+							href="Controller?action=showSubcategories&amp;catName={$catName}">
+							Back
+						</a>
+						<a class="myButton"
+							href="Controller?action=addNewProduct&amp;catName={$catName}&amp;subcatName={$subcatName}">
+							Add
+						</a>
 					</div>
 				</div>
 			</body>

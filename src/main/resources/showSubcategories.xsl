@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <xsl:stylesheet version="1.0"
-	xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
+	xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
+>
 
-	<xsl:template match="/shop">
+	<xsl:template match="shop">
 
 		<xsl:param name="catName" />
 
@@ -30,13 +31,9 @@
 						</p>
 					</xsl:for-each>
 					<div class="buttonsBar">
-
-						<button class="myButton">
-							<a href="Controller?action=showCategories">
-								Back
-							</a>
-						</button>
-
+						<a class="myButton" href="Controller?action=showCategories">
+							Back
+						</a>
 					</div>
 				</div>
 			</body>

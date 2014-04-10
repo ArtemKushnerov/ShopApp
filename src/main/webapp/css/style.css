@@ -5,15 +5,18 @@
 	background-color: #ffffff;
 	padding: 2px 15px 2px 15px;
 	margin: 5px;
+	cursor:hand;
+	text-decoration:none;
+	color: black;
 }
 
-a>.myButton {
+/*  button a {
 	text-decoration: none;
 }
-a:visited .myButton{
+button a:visited {
 	color: black;
 }	
-
+ */
 #main {
 	display:table;
 	padding: 30px;

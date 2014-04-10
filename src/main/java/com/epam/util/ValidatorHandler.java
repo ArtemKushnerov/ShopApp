@@ -1,7 +1,7 @@
 package com.epam.util;
 
 
-public class ValidatorHolder {
+public class ValidatorHandler{
 	
 	 public static boolean validate(Object val, String producer, String model, String color,
 			String dateOfIssue, String price, boolean notInStock){

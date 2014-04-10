@@ -2,25 +2,28 @@
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
 	targetNamespace="http://www.ShopApp.com" xmlns="http://www.ShopApp.com"
 	elementFormDefault="qualified">
+	
 
 	<xs:element name="shop" type="shop" />
 
 	<xs:complexType name="shop">
 		<xs:sequence>
-			<xs:element name="category" type="category" />
+			<xs:element name="category" type="category" minOccurs="1" maxOccurs="unbounded"/>
 		</xs:sequence>
 	</xs:complexType>
 
 	<xs:complexType name="category">
 		<xs:sequence>
-			<xs:element name="subcategory" type="subcategory" minOccurs="1" maxOccurs="unbounded" />
+			<xs:element name="subcategory" type="subcategory"
+				minOccurs="1" maxOccurs="unbounded" />
 		</xs:sequence>
 		<xs:attribute name="name" type="xs:string" use="required" />
 	</xs:complexType>
 
-	<xs:complexType name="subcategory" >
+	<xs:complexType name="subcategory">
 		<xs:sequence>
-			<xs:element name="product" type="product" minOccurs="0" maxOccurs="unbounded" />
+			<xs:element name="product" type="product" minOccurs="0"
+				maxOccurs="unbounded" />
 		</xs:sequence>
 		<xs:attribute name="name" type="xs:string" use="required" />
 	</xs:complexType>

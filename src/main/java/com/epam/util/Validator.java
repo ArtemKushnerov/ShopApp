@@ -51,7 +51,7 @@ public class Validator {
 			errors.put("dateError", "field can not be empty");
 			return false;
 		}
-		if (!date.matches("^[0-3][0-9]-[0-1][0-9]-[0-9]{4}$")) {
+		if (!date.matches("^(0?[1-9]|[12][0-9]|3[01])-(0?[1-9]|1[012])-\\d{4}$")) {
 			errors.put("dateError", "date must be in dd-MM-YYYY format");
 			return false;
 		}
