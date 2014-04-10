@@ -13,13 +13,37 @@
 		<welcome-file>index.jsp</welcome-file>
 	</welcome-file-list>
   
-	<servlet>
+	<!-- <servlet>
 		<servlet-name>Controller</servlet-name>
 		<servlet-class>com.epam.controller.Controller</servlet-class>
 	</servlet>
 	<servlet-mapping>
 		<servlet-name>Controller</servlet-name>
 		<url-pattern>/Controller</url-pattern>
-	</servlet-mapping>
+	</servlet-mapping> -->
+	
+	      <servlet>
+        <servlet-name>action</servlet-name>
+        <servlet-class>
+            org.apache.struts.action.ActionServlet
+        </servlet-class>
+          <init-param>
+              <param-name>config</param-name>
+              <param-value>
+                  /WEB-INF/struts-config.xml
+              </param-value>
+          </init-param>
+          <init-param>
+              <param-name>chainConfig</param-name>
+              <param-value>org/apache/struts/tiles/chain-config.xml</param-value>
+          </init-param>
+          <load-on-startup>1</load-on-startup>
+    </servlet>
+
+	    <servlet-mapping>
+        <servlet-name>action</servlet-name>
+        <url-pattern>*.do</url-pattern>
+    </servlet-mapping>
+	
 	
 </web-app>

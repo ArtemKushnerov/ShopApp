@@ -29,7 +29,7 @@ public class Validator {
 			errors.put("modelError", "field can not be empty");
 			return false;
 		}
-		if (!model.matches("[a-zA-Z][a-zA-Z][0-9][0-9][0-9]")) {
+		if (!model.matches("[a-zA-Z]{2}[0-9]{3}")) {
 			errors.put("modelError",
 					"model must consist of two letters and three digits");
 			return false;

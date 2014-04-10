@@ -15,7 +15,7 @@ import com.epam.util.StringHolder;
 import com.epam.util.XSLManager;
 
 
-public class AddNewProductAction implements Action {
+public final class AddNewProductAction implements Action {
 
 	
 	private static final String ADD_PRODUCT_XSL = "/addProductForm.xsl";
@@ -32,32 +32,14 @@ public class AddNewProductAction implements Action {
 		Map<String, Object> paramsMap = new HashMap<String, Object>();
 		paramsMap.put(StringHolder.CAT_NAME, catName);
 		paramsMap.put(StringHolder.SUBCAT_NAME, subcatName);
-/*		addPreviousValues(req, paramsMap);		
-*/		Lock readLock = RWLockSingleton.INSTANCE.readLock();
+		Lock readLock = RWLockSingleton.INSTANCE.readLock();
 		readLock.lock();
 		try {
 			XSLManager.makeTransform(ADD_PRODUCT_XSL, shop, resultWriter,
 					paramsMap);
 		} finally {
 			readLock.unlock();
-
-		}
-
-	}
-
-/*	private void addPreviousValues(HttpServletRequest req,
-			Map<String, Object> paramsMap) {
-		Map<String,String> errors = (Map<String, String>) req.getAttribute("errors");
-		if (errors != null) {
-			paramsMap.put("model", req.getParameter("model"));
-			paramsMap.put("color", req.getParameter("color"));
-			paramsMap.put("dateOfIssue", req.getParameter("dateOfIssue"));
-			paramsMap.put("price", req.getParameter("price"));
-			paramsMap.put("producer", req.getParameter("producer"));
-			paramsMap.put("notInStock", req.getParameter("notInStock"));
-			paramsMap.putAll(errors);
-			paramsMap.put("errors",errors);
 		}
 	}
-*/
+
 }

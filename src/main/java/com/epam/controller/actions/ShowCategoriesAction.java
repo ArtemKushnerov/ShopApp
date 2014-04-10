@@ -9,10 +9,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.epam.util.RWLockSingleton;
-import com.epam.util.StringHolder;
 import com.epam.util.XSLManager;
+import static com.epam.util.StringHolder.*;
 
-public class ShowCategoriesAction implements Action {
+public final class ShowCategoriesAction implements Action {
 
 	private static final String SHOW_CATEGORIES_XSL = "/showCategories.xsl";
 
@@ -22,7 +22,7 @@ public class ShowCategoriesAction implements Action {
 		PrintWriter resultWriter = resp.getWriter();
 
 		InputStream shop = ShowCategoriesAction.class
-				.getResourceAsStream(StringHolder.SHOP_XML);
+				.getResourceAsStream(SHOP_XML);
 
 		Lock readLock = RWLockSingleton.INSTANCE.readLock();
 		readLock.lock();

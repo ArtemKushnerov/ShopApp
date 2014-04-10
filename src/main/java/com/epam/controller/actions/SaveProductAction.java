@@ -19,7 +19,7 @@ import com.epam.util.StringHolder;
 import com.epam.util.Validator;
 import com.epam.util.XSLManager;
 
-public class SaveProductAction implements Action {
+public final class SaveProductAction implements Action {
 
 	private static final String SAVE_PRODUCT_XSL = "/saveProduct.xsl";
 

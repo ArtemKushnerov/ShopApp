@@ -1,4 +1,4 @@
-package com.epam.controller.Factory;
+package com.epam.controller.factory;
 
 import java.util.HashMap;
 import java.util.Map;

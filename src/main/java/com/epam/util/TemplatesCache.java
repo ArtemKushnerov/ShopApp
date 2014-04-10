@@ -9,8 +9,11 @@ import javax.xml.transform.TransformerConfigurationException;
 import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.stream.StreamSource;
 
-public class TemplatesCache {
+class TemplatesCache {
 
+	private TemplatesCache(){
+		
+	}
 	private static ConcurrentHashMap<String, Templates> cache = new ConcurrentHashMap<String, Templates>();
 	private static TransformerFactory transformerFactory = TransformerFactory
 			.newInstance();

@@ -7,13 +7,13 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.epam.controller.Factory.ActionFactory;
+import com.epam.controller.factory.ActionFactory;
 import com.epam.controller.actions.Action;
 
 /**
  * Created by Artsiom_Kushniarou on 3/21/14.
  */
-public class Controller extends HttpServlet {
+public final class Controller extends HttpServlet {
 
 	/**
 	 * 

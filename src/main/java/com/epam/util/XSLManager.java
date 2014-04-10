@@ -33,7 +33,7 @@ public class XSLManager {
 		try {
 			t.transform(text, streamResult);
 		} catch (TransformerException e) {
-			// TODO Auto-generated catch block
+			
 			e.printStackTrace();
 		}
 	}

@@ -14,7 +14,7 @@ import com.epam.util.RWLockSingleton;
 import com.epam.util.StringHolder;
 import com.epam.util.XSLManager;
 
-public class ShowSubcategoriesAction implements Action {
+public final class ShowSubcategoriesAction implements Action {
 
 	private static final String SHOW_SUBCATEGORIES_XSL = "/showSubcategories.xsl";
 	@Override
