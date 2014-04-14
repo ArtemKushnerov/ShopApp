@@ -24,7 +24,7 @@ public class ShopAction extends DispatchAction {
 
 	public ActionForward catList(ActionMapping mapping, ActionForm form,
 			HttpServletRequest request, HttpServletResponse response) {
-	SAXBuilder builder = new SAXBuilder();
+		SAXBuilder builder = new SAXBuilder();
 		File shopXml = new File(SHOP_REAL_PATH);
 		Document doc = null;
 		try {
@@ -38,8 +38,25 @@ public class ShopAction extends DispatchAction {
 		}
 		ProductForm productForm = (ProductForm) form;
 		productForm.setDoc(doc);
-		Element root = doc.getRootElement();
-		System.out.println(root.getChild("category").getChild("subcategory").getChild("product").getChildText("model"));
+		return mapping.findForward("successCatList");
+	}
+
+	public ActionForward subcatList(ActionMapping mapping, ActionForm form,
+			HttpServletRequest request, HttpServletResponse response) {
+		SAXBuilder builder = new SAXBuilder();
+		File shopXml = new File(SHOP_REAL_PATH);
+		Document doc = null;
+		try {
+			doc = (Document) builder.build(shopXml);
+		} catch (JDOMException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		ProductForm productForm = (ProductForm) form;
+		productForm.setDoc(doc);
 		return mapping.findForward("successCatList");
 	}
 }
