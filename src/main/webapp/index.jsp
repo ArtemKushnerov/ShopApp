@@ -1,5 +1,5 @@
 <html>
 <body>
-<jsp:forward page="/shopAction.do?method=catList"/>
+<jsp:forward page="/shopAction.do?method=catlist"/>
 </body>
 </html>

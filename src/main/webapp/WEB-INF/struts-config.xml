@@ -5,17 +5,17 @@
 
 <struts-config>
 
-    <form-beans>
-        <form-bean name="productForm" type="com.epam.presentation.form.ProductForm"/>
-    </form-beans>
+	<form-beans>
+		<form-bean name="productForm" type="com.epam.presentation.form.ProductForm" />
+	</form-beans>
 
-    
+	<action-mappings>
+		<action path="/shopAction" name="productForm"
+			type="com.epam.presentation.action.ShopAction" parameter="method">
+			<forward name="catlist" path="/pages/catlist.jsp" />
+			<forward name="subcatlist" path="/pages/subcatlist.jsp" />
+			<forward name="productlist" path="/pages/productlist.jsp" />
+		</action>
+	</action-mappings>
 
-    <action-mappings>
-        <action path="/shopAction" name="productForm" type="com.epam.presentation.action.ShopAction" parameter="method">
-            <forward name="successCatList" path="/pages/catList.jsp"/>
-            <forward name="successCatList" path="/pages/subcatList.jsp"/>
-        </action>
-    </action-mappings>
-   
 </struts-config>

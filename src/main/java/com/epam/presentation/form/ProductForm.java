@@ -5,32 +5,32 @@ import org.jdom2.Document;
 
 public class ProductForm extends ActionForm{
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 4199508027986990036L;
 	private Document doc;
-	private String catName;
-	private String subcatName;
+	private int catIndex;
+	private int subcatIndex;
 	public Document getDoc() {
 		return doc;
 	}
-
 	public void setDoc(Document doc) {
 		this.doc = doc;
 	}
-
-	public String getSubcatName() {
-		return subcatName;
+	public int getCatIndex() {
+		return catIndex;
+	}
+	public void setCatIndex(int catIndex) {
+		this.catIndex = catIndex;
+	}
+	public int getSubcatIndex() {
+		return subcatIndex;
+	}
+	public void setSubcatIndex(int subcatIndex) {
+		this.subcatIndex = subcatIndex;
 	}
 
-	public void setSubcatName(String subcatName) {
-		this.subcatName = subcatName;
-	}
-
-	public String getCatName() {
-		return catName;
-	}
-
-	public void setCatName(String catName) {
-		this.catName = catName;
-	}
 
 	
 }
