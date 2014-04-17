@@ -12,6 +12,7 @@ public class ProductForm extends ActionForm{
 	private Document doc;
 	private int catIndex;
 	private int subcatIndex;
+	private long lastMod;
 	public Document getDoc() {
 		return doc;
 	}
@@ -29,6 +30,12 @@ public class ProductForm extends ActionForm{
 	}
 	public void setSubcatIndex(int subcatIndex) {
 		this.subcatIndex = subcatIndex;
+	}
+	public long getLastMod() {
+		return lastMod;
+	}
+	public void setLastMod(long lastMod2) {
+		this.lastMod = lastMod2;
 	}
 
 

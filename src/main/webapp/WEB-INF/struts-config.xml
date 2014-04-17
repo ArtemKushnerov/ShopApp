@@ -14,7 +14,7 @@
 			type="com.epam.presentation.action.ShopAction" parameter="method">
 			<forward name="catlist" path="/pages/catlist.jsp" />
 			<forward name="subcatlist" path="/pages/subcatlist.jsp" />
-			<forward name="productlist" path="/pages/productlist.jsp" />
+			<forward name="productlist" path="/pages/productlist.jsp" 	/>
 		</action>
 	</action-mappings>
 

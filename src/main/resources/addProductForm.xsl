@@ -43,7 +43,7 @@
 			<body>
 				<div id="main">
 					<form id="product_form"
-						action="Controller?action=saveProduct&amp;catName={$catName}&amp;subcatName={$subcatName}"
+						action="shopAction.do?method=saveProduct&amp;catName={$catName}&amp;subcatName={$subcatName}"
 						method="POST">
 
 						<div class="cont">
@@ -99,10 +99,9 @@
 						<div class="buttonsBar">
 
 							<a class="myButton"
-								href="Controller?action=showProducts&amp;catName={$catName}&amp;subcatName={$subcatName}">Back</a>
+								href="shopAction.do?method=productlist&amp;catIndex=${productForm.catIndex}&amp;subcatIndex=${subcatIndex}">Back</a>
 
 							<a class="myButton" href="" onclick="document.getElementById('product_form').submit(); return false;">Add</a>
-
 						</div>
 					</form>
 				</div>

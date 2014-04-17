@@ -5,14 +5,14 @@
 			<product name="prod1">
 				<producer>asd</producer>
 				<model>ab122</model>
-				<date_of_issue>2012-01-01</date_of_issue>
+				<date_of_issue>01-01-2012</date_of_issue>
 				<color>red</color>
 				<price>12</price>
 			</product>
 			<product name="prod2">
 				<producer>hhhhhh</producer>
 				<model>ab142</model>
-				<date_of_issue>2015-02-07</date_of_issue>
+				<date_of_issue>01-03-2012</date_of_issue>
 				<color>blue</color>
 				<not_in_stock/>
 			</product>
@@ -23,7 +23,7 @@
 			<product name="prod3">
 				<producer>iiiiiooo</producer>
 				<model>rt945</model>
-				<date_of_issue>2012-05-05</date_of_issue>
+				<date_of_issue>05-09-2012</date_of_issue>
 				<color>orange</color>
 				<price>56</price>
 			</product>
