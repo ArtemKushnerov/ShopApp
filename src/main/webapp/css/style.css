@@ -1,12 +1,11 @@
-
 .myButton {
 	border-radius: 5px;
 	border: 2px solid #6495ED;
 	background-color: #ffffff;
 	padding: 2px 15px 2px 15px;
 	margin: 5px;
-	cursor:hand;
-	text-decoration:none;
+	cursor: hand;
+	text-decoration: none;
 	color: black;
 }
 
@@ -18,10 +17,32 @@ button a:visited {
 }	
  */
 #main {
-	display:table;
+	display: table;
 	padding: 30px;
+	margin-top: 50px;
+	margin-left: 100px;
 }
 
 .buttonsBar {
-	margin-top:20px;
+	margin-top: 20px;
+}
+
+.date {
+	width: 190px;
+}
+
+.model {
+	width: 170px;
+}
+
+label {
+	margin-bottom: 0px;
+}
+
+tr {
+	height: 63px;
+}
+
+label.error {
+	color: #D44950;
 }

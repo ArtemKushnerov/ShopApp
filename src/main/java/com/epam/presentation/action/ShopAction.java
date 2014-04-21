@@ -97,7 +97,7 @@ public final class ShopAction extends DispatchAction {
 		int subcatIndex = productForm.getSubcatIndex();
 
 		Document doc = productForm.getDoc();
-		// get category and subcategory names by indexes
+
 		String catName = indexToCatName(doc, catIndex);
 		String subcatName = indexToSubcatname(doc, catIndex, subcatIndex);
 
@@ -184,7 +184,6 @@ public final class ShopAction extends DispatchAction {
 				.getChildren().get(subcatIndex).getAttribute("name");
 		return subcatNameAtr.getValue();
 	}
-
 
 	private void setDocument2Form(ActionForm form) throws JDOMException,
 			IOException {
